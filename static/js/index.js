@@ -44,11 +44,11 @@ backBtn.addEventListener("click", () => {
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const username = document.getElementById("email").value.trim();
+    const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value;
 
     // Validaciones básicas
-    if (!username) {
+    if (!email) {
         showMessage("Debe ingresar un usuario", "red");
         return;
     }
@@ -84,17 +84,15 @@ form.addEventListener("submit", async (e) => {
     showMessage("Validando...", "orange");
 
     try {
+        const formData = new FormData();
+        formData.append("email", email);
+        formData.append("password", password);
+        
         const response = await fetch(
             registerMode ? "/registrar_user": "/login",
             {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    username,
-                    password
-                })
+                body: formData
             }
         );
 
@@ -103,6 +101,9 @@ form.addEventListener("submit", async (e) => {
         // Elemento que se actualiza con la respuesta
         showMessage(data.message, data.success ? "green" : "red");
         if (data.success) {
+            if (data.is_analist){
+                window.location.href = "/registro"; //cambiar
+            }
             window.location.href = "/registro";
         }
 

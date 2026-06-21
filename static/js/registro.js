@@ -1,11 +1,17 @@
 const form = document.getElementById("registerForm");
 const message = document.getElementById("message");
 
+
+function showMessage(text, color) {
+    message.textContent = text;
+    message.style.color = color;
+}
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const fullname = document.getElementById("fullname").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
     const career = document.getElementById("career").value.trim();
     const semester = document.getElementById("semester").value.trim();
     const cv = document.getElementById("cv").files[0];
@@ -19,9 +25,9 @@ form.addEventListener("submit", async (e) => {
         );
     }
 
-    if (!email) {
+    if (!phone || isNaN(phone)) {
         return showMessage(
-            "El correo es obligatorio",
+            "Debes ingresar un número de teléfono",
             "red"
         );
     }
@@ -53,7 +59,7 @@ form.addEventListener("submit", async (e) => {
         const formData = new FormData();
 
         formData.append("fullname", fullname);
-        formData.append("email", email);
+        formData.append("phone", phone);
         formData.append("career", career);
         formData.append("semester", semester);
         formData.append("cv", cv);
@@ -88,7 +94,3 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
-function showMessage(text, color) {
-    message.textContent = text;
-    message.style.color = color;
-}
