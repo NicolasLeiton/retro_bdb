@@ -32,11 +32,38 @@
                     placeholder="Ingrese su contraseña"
                 >
             </div>
+            <div
+                class="input-group"
+                id="confirmPasswordGroup"
+                style="display:none;"
+            >
+                <label for="confirmPassword">
+                    Confirmar contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="confirmPassword"
+                    placeholder="Repita la contraseña"
+                >
+            </div>
 
             <button type="submit">Ingresar</button>
         </form>
         
+        <div class="actions">
+            <button type="button" id="registerBtn">
+                Registrarme
+            </button>
 
+            <button
+                type="button"
+                id="backBtn"
+                style="display:none;"
+            >
+                Volver al Login
+            </button>
+        </div>
         <p id="message"></p>
     </div>
 

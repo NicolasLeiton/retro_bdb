@@ -93,3 +93,17 @@ button:hover {
     margin-top: 18px;
     text-align: center;
 }
+.actions {
+    margin-top: 10px;
+}
+
+#registerBtn,
+#backBtn {
+    margin-top: 10px;
+    background-color: #333;
+}
+
+#registerBtn:hover,
+#backBtn:hover {
+    background-color: #444;
+}

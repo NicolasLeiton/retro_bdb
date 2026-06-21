@@ -1,5 +1,45 @@
 const form = document.getElementById("loginForm");
 const message = document.getElementById("message");
+const registerBtn = document.getElementById("registerBtn");
+const backBtn = document.getElementById("backBtn");
+const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
+
+let registerMode = false;
+
+registerBtn.addEventListener("click", () => {
+
+    registerMode = true;
+
+    document.querySelector("h2").textContent =
+        "Crear Cuenta";
+
+    confirmPasswordGroup.style.display = "block";
+
+    form.querySelector("button[type='submit']").textContent =
+        "Crear Cuenta";
+
+    registerBtn.style.display = "none";
+    backBtn.style.display = "block";
+
+    message.textContent = "";
+});
+backBtn.addEventListener("click", () => {
+
+    registerMode = false;
+
+    document.querySelector("h2").textContent =
+        "Iniciar Sesión";
+
+    confirmPasswordGroup.style.display = "none";
+
+    form.querySelector("button[type='submit']").textContent =
+        "Ingresar";
+
+    registerBtn.style.display = "block";
+    backBtn.style.display = "none";
+
+    message.textContent = "";
+});
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -25,12 +65,27 @@ form.addEventListener("submit", async (e) => {
         );
         return;
     }
+    if (registerMode) {
+
+    const confirmPassword =
+        document.getElementById("confirmPassword").value;
+
+    if (password !== confirmPassword) {
+
+        showMessage(
+            "Las contraseñas no coinciden",
+            "red"
+        );
+
+        return;
+    }
+}
 
     showMessage("Validando...", "orange");
 
     try {
         const response = await fetch(
-            "http://localhost:5000/login",
+            registerMode ? "/registrar_user": "/login",
             {
                 method: "POST",
                 headers: {
@@ -47,6 +102,9 @@ form.addEventListener("submit", async (e) => {
 
         // Elemento que se actualiza con la respuesta
         showMessage(data.message, data.success ? "green" : "red");
+        if (data.success) {
+            window.location.href = "/registro";
+        }
 
     } catch (error) {
         showMessage(
