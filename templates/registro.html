@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Practicantes</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
+</head>
+<body>
+
+    <div class="register-container">
+        <h2>Registro de Practicantes</h2>
+
+        <form id="registerForm">
+
+            <div class="input-group">
+                <label for="fullname">Nombre completo *</label>
+                <input
+                    type="text"
+                    id="fullname"
+                    placeholder="Ingrese su nombre completo"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="email">Correo electrónico *</label>
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="correo@ejemplo.com"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="career">Carrera universitaria *</label>
+                <input
+                    type="text"
+                    id="career"
+                    placeholder="Ingeniería de Sistemas"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="semester">Semestre actual *</label>
+                <input
+                    type="number"
+                    id="semester"
+                    min="1"
+                    max="20"
+                    placeholder="Ej: 7"
+                >
+            </div>
+
+            <div class="input-group">
+                <label for="cv">Hoja de vida (PDF)</label>
+                <input
+                    type="file"
+                    id="cv"
+                    accept=".pdf"
+                >
+            </div>
+
+            <button type="submit">
+                Registrarme
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+    </div>
+
+    <script src="{{url_for('static', filename='js/registro.js')}}"></script>
+
+</body>
+</html>
