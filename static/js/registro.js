@@ -94,3 +94,45 @@ form.addEventListener("submit", async (e) => {
     }
 });
 
+// Logout
+document.getElementById('btnLogout').addEventListener('click', () => {
+    window.location.href = '/logout';
+});
+
+document.getElementById('btnDelete').addEventListener('click', async() => {
+    const confirmar = confirm('¿Seguro que deseas eliminar la postulación anterior?');
+
+    if (confirmar) {
+            try {
+
+        showMessage(
+            "Enviando información...",
+            "orange"
+        );
+
+        const response = await fetch(
+            "/borrarpostulacion",
+            {
+                method: "DELETE"
+            }
+        );
+
+        const data = await response.json();
+
+        showMessage(
+            data.message,
+            data.success ? "lightgreen" : "red"
+        );
+
+    } catch (error) {
+
+        showMessage(
+            "No fue posible conectar con el servidor",
+            "red"
+        );
+
+    }
+    }
+    
+});
+

@@ -153,14 +153,32 @@ body {
 
 .detail-actions button { width: auto; padding: 10px 18px; font-size: 13px; }
 
-.btn-viable    { background-color: #1e5c1e; }
+.btn-viable    { background-color: #1e5c1e;color: #ffffff; }
 .btn-viable:hover { background-color: #276427; }
 
-.btn-no-viable { background-color: #e02323; }
+.btn-no-viable { background-color: #e02323; color: #ffffff;}
 .btn-no-viable:hover { background-color: #750505; }
 
-.btn-download  { background-color: #1a3a5c; }
-.btn-download:hover { background-color: #1f4a78; }
+.btn-download  { background-color: #f7d82a;}
+.btn-download:hover { background-color: #c7ac16; }
 .btn-download:disabled { background-color: #2b2b2b; color: #555; cursor: not-allowed; }
 
 #actionMessage { font-size: 13px; margin-top: 4px; min-height: 18px; }
+
+.top-bar{
+    display: flex;
+    justify-content: flex-start;
+    padding: 15px 20px;
+}
+.btn-logout{
+    background-color: #e02323;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btn-logout:hover {
+    background-color: #750505;
+}

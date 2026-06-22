@@ -7,7 +7,13 @@
 
     <link rel="stylesheet" href="{{url_for('static', filename='css/index.css')}}">
 </head>
+<header>
+    
+</header>
 <body>
+    <div class="top-bar">
+        <button href="/logout" id="btnLogout" class="btn-logout">Cerrar sesión</button>
+    </div>
 
     <div class="register-container">
         <h2>Registro de Practicantes</h2>
@@ -65,7 +71,13 @@
                 Registrarme
             </button>
 
+            
+
         </form>
+
+        <button id="btnDelete">
+                Borrar postulación anterior
+        </button>
 
         <p id="message"></p>
 

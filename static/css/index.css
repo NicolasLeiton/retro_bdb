@@ -98,12 +98,19 @@ button:hover {
 }
 
 #registerBtn,
-#backBtn {
+#backBtn, #btnDelete {
     margin-top: 10px;
     background-color: #333;
 }
-
+#btnDelete:hover {
+    background-color: #750505;
+}
 #registerBtn:hover,
 #backBtn:hover {
     background-color: #444;
+}
+.top-bar{
+    position: fixed;
+    top: 15px;
+    right: 20px;
 }

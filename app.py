@@ -35,6 +35,13 @@ def registro_user():
     email = request.form.get("email")
     password = request.form.get("password")
 
+    existe = bdd.verificar_usuario(email, password)
+    if existe["message"]!="El usuario no existe":
+        return jsonify({
+            "success": False,
+            "message": "El usuario ya existe"
+        })
+
     respuesta = bdd.agregar_usuario(email, password)
     if respuesta["success"]:
         session["user_id"] = email
@@ -42,6 +49,11 @@ def registro_user():
     
     return jsonify(respuesta)
 
+# -- LOGOUT --
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login_page"))
 
 # -- PAGINA DE REGISTRO --
 @app.route("/registro")
@@ -55,7 +67,6 @@ def registro_page():
 def registro_cv():
     
     email = session["user_id"]
-    print(email)
     phone = request.form.get("phone")
     fullname = request.form.get("fullname")
     career = request.form.get("career")
@@ -67,9 +78,36 @@ def registro_cv():
         ruta = secure_filename(email).replace(".", "_")
         ruta = f"uploads/{ruta}.pdf"
         cv.save(ruta)
+    else:
+        ruta = None
+
+    existe = bdd.datos_practicante(email)
+    if "error" not in existe:
+        return jsonify(
+            {
+                "success": False,
+                "message": "Ya hay una postulación anterior, intente borrar primero la postulación anterior"
+                }
+        )
+
     respuesta = bdd.agregar_registro(email, fullname, phone, career, semester, ruta)
-    print(ruta, respuesta)
     return jsonify(respuesta)
+
+@app.route("/borrarpostulacion", methods=["DELETE"])
+def borrar():
+    email = session["user_id"]
+    existe = bdd.datos_practicante(email)
+    if "error" in existe:
+        return jsonify(
+            {
+                "success": False,
+                "message": "No hay ninguna postulación anterior"
+                }
+        )
+    if existe["cv_route"]!=None:
+        os.remove(existe["cv_route"])
+    return bdd.borrar_postulacion(email)
+    
 
 # Funcion para verificar permisos
 def verificar_analista():

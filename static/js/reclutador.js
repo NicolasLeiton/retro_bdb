@@ -156,8 +156,15 @@ btnDownloadCV.addEventListener('click', () => {
     a.click();
 });
 
+// Botones marcar viable/no viable
 btnViable.addEventListener('click',   () => markIntern(true));
 btnNoViable.addEventListener('click', () => markIntern(false));
+
+//Logout
+document.getElementById('btnLogout').addEventListener('click', () => {
+    window.location.href = '/logout';
+});
+
 
 //  Init 
 loadList();

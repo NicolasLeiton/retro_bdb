@@ -111,6 +111,9 @@ def datos_practicante(email):
         cursor.execute("SELECT * FROM INTERNS WHERE EMAIL= %s", (email,))
         user = cursor.fetchone()
         cursor.close()
+        if user== None:
+            return {"error": "El usuario no existe"}
+        
         data = {"email": user[0],
                 "fullname": user[1],
                 "phone": user[2],
@@ -122,6 +125,8 @@ def datos_practicante(email):
         return data
     except Exception as e:
         return {"error": e}
+    
+
 
 # -- UPDATE --
 def cambiar_viable(email, viable):
@@ -134,4 +139,18 @@ def cambiar_viable(email, viable):
         return {"mensaje": "cambio realizado"}, 200
     except Exception as e:
         return {"error": e}, 500
+
+# -- DELETE --
+def borrar_postulacion(email):
+    try:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM INTERNS WHERE EMAIL= %s", (email,))
+        conn.commit()
+        cursor.close()
+        return {"success": True,
+                "message": "Postulación eliminada correctamente"}
+    except Exception as e:
+        return {
+            "success": False,
+            "error": e}
     
