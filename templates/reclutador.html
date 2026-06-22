@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Reclutador</title>
+
+    <link rel="stylesheet" href="{{url_for('static', filename='css/reclutador.css')}}">
+</head>
+<body class="recruiter-body">
+
+    <div class="recruiter-container">
+
+        <!-- LATERAL: Lista de practicantes -->
+        <aside class="sidebar">
+            <h2>Practicantes</h2>
+            <ul id="internList">
+                <li class="list-placeholder">Cargando...</li>
+            </ul>
+        </aside>
+
+        <!-- PANEL PRINCIPAL: Detalle del practicante -->
+        <main class="detail-panel">
+
+            <div id="emptyState" class="empty-state">
+                <p>Selecciona un practicante para ver su información.</p>
+            </div>
+
+            <div id="internDetail" class="intern-detail hidden">
+
+                <div class="detail-header">
+                    <h2 id="detailName">—</h2>
+                    <span id="detailBadge" class="badge badge-none">Sin evaluar</span>
+                </div>
+
+                <div class="detail-fields">
+
+                    <div class="detail-field">
+                        <span class="field-label">Correo</span>
+                        <span class="field-value" id="detailEmail">—</span>
+                    </div>
+
+                    <div class="detail-field">
+                        <span class="field-label">Teléfono</span>
+                        <span class="field-value" id="detailPhone">—</span>
+                    </div>
+
+                    <div class="detail-field">
+                        <span class="field-label">Carrera</span>
+                        <span class="field-value" id="detailDegree">—</span>
+                    </div>
+
+                    <div class="detail-field">
+                        <span class="field-label">Semestre</span>
+                        <span class="field-value" id="detailSemester">—</span>
+                    </div>
+
+                </div>
+
+                <div class="detail-actions">
+                    <button id="btnViable" class="btn-viable">Marcar como Viable</button>
+                    <button id="btnNoViable" class="btn-no-viable">Marcar como No Viable</button>
+                    <button id="btnDownloadCV" class="btn-download">Descargar CV</button>
+                </div>
+
+                <p id="actionMessage"></p>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script src="{{url_for('static', filename='js/reclutador.js')}}"></script>
+
+</body>
+</html>

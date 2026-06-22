@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
 from werkzeug.security import generate_password_hash, check_password_hash
 import os, psycopg2
-
+from flask import jsonify
 load_dotenv()
 
+#Realizar conexion
 conn = psycopg2.connect(
     host=os.getenv("DB_HOST"),
     port=os.getenv("DB_PORT"),
@@ -11,7 +12,7 @@ conn = psycopg2.connect(
     user=os.getenv("DB_USER"),
     password=os.getenv("DB_PASSWORD")
 )
-
+# ---CREATE---
 def agregar_usuario(email, password, analist=False):
     try:
         
@@ -33,7 +34,7 @@ def agregar_usuario(email, password, analist=False):
         "message": e
         }
 
-def agregar_registro(email, fullname, phone, career, semester, cv):
+def agregar_registro(email, fullname, phone, career, semester, cv=None):
     try:
         
         cursor = conn.cursor()
@@ -54,6 +55,7 @@ def agregar_registro(email, fullname, phone, career, semester, cv):
         "message": e
         }
 
+# -- READ --
 def verificar_usuario(email, password):
     try:
         
@@ -83,3 +85,53 @@ def verificar_usuario(email, password):
         "success": False,
         "message": e
         }
+
+def lista_postulados():
+    try:
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT EMAIL, IS_VIABLE FROM INTERNS")
+        data = cursor.fetchall()
+        cursor.close()
+        lista = []
+        for i in range(len(data)):
+            lista.append({"email":data[i][0],
+                          "viable":data[i][1]})
+            
+        
+        return lista
+        
+    except Exception as e:
+        return {"error": e}
+
+def datos_practicante(email):
+    try:
+        
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM INTERNS WHERE EMAIL= %s", (email,))
+        user = cursor.fetchone()
+        cursor.close()
+        data = {"email": user[0],
+                "fullname": user[1],
+                "phone": user[2],
+                "degree":user[3],
+                "semester":user[4],
+                "cv_route":user[5],
+                "viable":user[6]
+                }
+        return data
+    except Exception as e:
+        return {"error": e}
+
+# -- UPDATE --
+def cambiar_viable(email, viable):
+    try:
+        
+        cursor = conn.cursor()
+        cursor.execute("UPDATE INTERNS SET IS_VIABLE=%s  WHERE EMAIL= %s", (viable, email))
+        conn.commit()
+        cursor.close()
+        return {"mensaje": "cambio realizado"}, 200
+    except Exception as e:
+        return {"error": e}, 500
+    

@@ -5,9 +5,8 @@ const backBtn = document.getElementById("backBtn");
 const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
 
 let registerMode = false;
-
+// Intercambio entre modo de registro y modo de login
 registerBtn.addEventListener("click", () => {
-
     registerMode = true;
 
     document.querySelector("h2").textContent =
@@ -23,6 +22,7 @@ registerBtn.addEventListener("click", () => {
 
     message.textContent = "";
 });
+
 backBtn.addEventListener("click", () => {
 
     registerMode = false;
@@ -41,6 +41,7 @@ backBtn.addEventListener("click", () => {
     message.textContent = "";
 });
 
+//Verificaciones y envio de datos al endpoint
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -101,10 +102,12 @@ form.addEventListener("submit", async (e) => {
         // Elemento que se actualiza con la respuesta
         showMessage(data.message, data.success ? "green" : "red");
         if (data.success) {
+            
             if (data.is_analist){
-                window.location.href = "/registro"; //cambiar
+                window.location.href = "/reclutador";
             }
-            window.location.href = "/registro";
+            else{
+                window.location.href = "/registro";}
         }
 
     } catch (error) {
