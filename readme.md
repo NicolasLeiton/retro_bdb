@@ -12,3 +12,9 @@
 5. Crear un entorno virtual e instalar los paquetes del archivo *requirements.txt*.
 6. Iniciar aplicación ejecutando el archivo *app.py*.
 7. (recomendado) Crear usuarios de prueba antes de ingresar como reclutador.
+
+## Capturas de pantalla
+![Formulario de registro](screenshots/Registro.png)
+![Formulario de ingreso](screenshots/Login.png)
+![Formulario de registro de practicante](screenshots/Formulario.png)
+![Vista del analista](screenshots/VistaAnalistas.png)
